@@ -11,6 +11,7 @@ public class Cliente {
 	private CategoriaEnum nombreCategoria;
 	
 	
+	
 	public Cliente(String runCliente, String nombreCliente, String apellidoCliente, String aniosCliente,
 			CategoriaEnum nombreCategoria) {
 		super();
@@ -22,57 +23,57 @@ public class Cliente {
 	}
 
 
-	String getRunCliente() {
+	public String getRunCliente() {
 		return runCliente;
 	}
 
 
-	void setRunCliente(String runCliente) {
+	public void setRunCliente(String runCliente) {
 		this.runCliente = runCliente;
 	}
 
 
-	String getNombreCliente() {
+	public String getNombreCliente() {
 		return nombreCliente;
 	}
 
 
-	void setNombreCliente(String nombreCliente) {
+	public void setNombreCliente(String nombreCliente) {
 		this.nombreCliente = nombreCliente;
 	}
 
 
-	String getApellidoCliente() {
+	public String getApellidoCliente() {
 		return apellidoCliente;
 	}
 
 
-	void setApellidoCliente(String apellidoCliente) {
+	public void setApellidoCliente(String apellidoCliente) {
 		this.apellidoCliente = apellidoCliente;
 	}
 
 
-	String getAniosCliente() {
+	public String getAniosCliente() {
 		return aniosCliente;
 	}
 
 
-	void setAniosCliente(String aniosCliente) {
+	public void setAniosCliente(String aniosCliente) {
 		this.aniosCliente = aniosCliente;
 	}
 
 
-	CategoriaEnum getNombreCategoria() {
+	public CategoriaEnum getNombreCategoria() {
 		return nombreCategoria;
 	}
 
 
-	void setNombreCategoria(CategoriaEnum nombreCategoria) {
+	public void setNombreCategoria(CategoriaEnum nombreCategoria) {
 		this.nombreCategoria = nombreCategoria;
 	}
 	
 	
-	// Método toString
+	// Método ToString
 	
 	@Override
 	public String toString() {

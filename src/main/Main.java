@@ -7,11 +7,15 @@
 package main;
 
 import vista.Menu;
+import utilidades.Utilidad;
 
 public class Main {
 
 	public static void main(String[] args) {
+		Utilidad utilidad = new Utilidad();
 		Menu menu = new Menu();
+		utilidad.espera();
+		utilidad.limpiarPantalla();
 		menu.iniciarMenu();
 
 	}
