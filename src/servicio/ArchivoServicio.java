@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import modelo.CategoriaEnum;
 import modelo.Cliente;
@@ -16,7 +15,7 @@ import modelo.Cliente;
 public class ArchivoServicio extends Exportador {
 	
 	private ClienteServicio clienteServicio = new ClienteServicio();
-	static  List<Cliente> clientes  = new ArrayList<Cliente>();
+	private  List<Cliente> clientes  = new ArrayList<Cliente>();
 	
 
 	
@@ -46,13 +45,13 @@ public class ArchivoServicio extends Exportador {
 	
 				Cliente agregaCliente = new Cliente(datos[0], datos[1], datos[2], datos[3], estado );
 				clientes.add(agregaCliente);
+				
 			}
-			
-			clienteServicio.setListaClientes(clientes);
 			rd.close();
-	
-			
+			clienteServicio.setListaClientes(clientes);
 		
+			clienteServicio.listarClientes();
+			
 		  } catch (FileNotFoundException e) {
 		 	
 			e.printStackTrace();
@@ -66,6 +65,13 @@ public class ArchivoServicio extends Exportador {
 		
 		
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	@Override
 	public void exportar(String fileName, List<Cliente> listaClientes) {

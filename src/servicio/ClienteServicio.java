@@ -4,9 +4,6 @@ package servicio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-
-import modelo.CategoriaEnum;
 import modelo.Cliente;
 
 public class ClienteServicio {
@@ -15,7 +12,7 @@ public class ClienteServicio {
 	Scanner scanner = new Scanner (System.in);
 	
 	public ClienteServicio(List<Cliente> listaClientes) {
-		this.listaClientes = listaClientes;
+		ClienteServicio.listaClientes = listaClientes;
 	}
 	
 	
@@ -30,14 +27,13 @@ public class ClienteServicio {
 
 	//Setter
 	public void setListaClientes(List<Cliente> listaClientes) {
-		this.listaClientes = listaClientes;
+		ClienteServicio.listaClientes = listaClientes;
 	}
 
 
 	// Método ListarClientes, llamado desde Menú
 	public void listarClientes() {
 
-			System.out.println(listaClientes.size());
 			listaClientes.forEach(client -> {
 			System.out.println("-------------------- Datos del Cliente -------------------- ");	
 			System.out.println("RUN del Cliente: " + client.getRunCliente());
@@ -58,6 +54,7 @@ public class ClienteServicio {
 
 	// Método para agregar clientes en el arreglo ListaCliente
 	public void  agregarCliente(Cliente cliente) {
+		if (cliente != null)
 		listaClientes.add(cliente);
 		
 	}
@@ -103,17 +100,6 @@ public class ClienteServicio {
 		
 	System.out.println("Datos creados con éxito");
 	}
-
-	//Este método permite actualizar la misma isntamcia de Lista de Clientes con la lista
-	// Descargada desde el archivo DBClientes.csv
-	//Mediante el menú Listar Clientes se podrán listar todos los clientes : Creados + descarga
-/*public void actualizar() {
-		
-			listarClientes();
-			
-			
-		}*/
-		
 
 	
 	

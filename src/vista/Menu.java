@@ -30,7 +30,7 @@ public class Menu {
 		System.out.println("2. Agregar Cliente");
 		System.out.println("3. Editar Cliente");
 		System.out.println("4. Cargar Datos");
-		System.out.println("5. Esportar Datos");
+		System.out.println("5. Exportar Datos");
 		System.out.println("6. Salir");
 
 		System.out.println("Ingrese una opción:");
@@ -59,7 +59,8 @@ public class Menu {
 			System.out.println("La selección no es válida");
 
 		}
-//	utilidad.limpiarPantalla();	
+	utilidad.limpiarPantalla();	
+	utilidad.espera();
 	iniciarMenu();	
 	}
 
@@ -205,6 +206,8 @@ public class Menu {
 		//A continuación se llama el método exportar opción 1 o 2 depende del tipo
 		//de archivo a exportar, se utiliza polimorfismo para accesar la clase Exportador
 		//aprovechando la herencia
+		
+		
 		if(opcion.equals("1")) {
 			
 			((Exportador) exportadorTxt).exportar(fileName, clientes);
@@ -218,29 +221,42 @@ public class Menu {
 	}
 	
 	
+	// Método devuelve el Cliente al recibir el RUN como parámetro de entrada
+		private Cliente obtenerCliente(String run, List<Cliente> clientes) {
+			Cliente cliente = null;
+			if(clientes != null) {
+				for (Cliente client : clientes ) {
+					
+					String rutLista = client.getRunCliente();
+					if (rutLista.equals(run)) {
+						cliente = client;
+						
+					}	
+				}			
+			 }
+			return cliente;	
+		}		
+	
+	
 
 	
-	
+	//*****Método termina el Programa
 	private void terminarPrograma(){
+		
+		
+		String mensaje = "Terminando programa .......";
+		utilidad.printLine(mensaje);
+		utilidad.espera();
+		mensaje = "Adios....";
+		utilidad.limpiarPantalla();
+		utilidad.printLine(mensaje);
+		System.exit(0);
+		
 		
 	}
 	
 	
-	// Método devuelve el Cliente al recibir el RUN como parámetro de entrada
-	private Cliente obtenerCliente(String run, List<Cliente> clientes) {
-		Cliente cliente = null;
-		if(clientes != null) {
-			for (Cliente client : clientes ) {
-				
-				String rutLista = client.getRunCliente();
-				if (rutLista.equals(run)) {
-					cliente = client;
-					
-				}	
-			}			
-		 }
-		return cliente;	
-	}		
+	
 }
 
 

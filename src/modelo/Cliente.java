@@ -73,13 +73,17 @@ public class Cliente {
 	}
 
 
+	
+	
+	
 	public void setNombreCategoria(CategoriaEnum nombreCategoria) {
 		this.nombreCategoria = nombreCategoria;
 	}
-	
+
 	
 	// Método ToString
 	
+
 	@Override
 	public String toString() {
 		return "Cliente [runCliente=" + runCliente + ", nombreCliente=" + nombreCliente + ", apellidoCliente="
