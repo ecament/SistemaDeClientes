@@ -13,9 +13,12 @@ public class ExportadorCsv extends Exportador {
 	@Override
 	public void exportar(String fileName, List<Cliente> listaClientes) {
 	
-		
-				File archivo = new File(fileName + ".csv");
-
+		       System.out.println("Ingresa la ruta en donde desea exportar el archivo clientes.csv:");
+		       String ruta = scanner.nextLine();
+		       File archivo = new File(ruta + "/" + fileName + ".csv");
+			   
+			   System.out.println("--------------------------------------------\n");
+				
 				
 				try {
 					if(!archivo.exists()) {
@@ -26,13 +29,13 @@ public class ExportadorCsv extends Exportador {
 					PrintWriter pW= new PrintWriter(fileW);
 					
 
-					listaClientes.forEach(client -> {
+					listaClientes.stream().forEach(client -> {
 						
 						pW.append(client.getRunCliente()).append(",")
 						.append(client.getNombreCliente()).append(",")
 						.append(client.getAniosCliente()).append(",")
 						.append(client.getAniosCliente()).append(",")
-						.append(client.getNombreCategoria().name()).append(",")
+						.append(client.getNombreCategoria().name())
 						.println();
 					});	
 					pW.close();

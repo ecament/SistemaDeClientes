@@ -15,14 +15,14 @@ import utilidades.Utilidad;
 public class Menu {
 	
 	Scanner scanner = new Scanner(System.in);
-	ArchivoServicio archivoServicio;
+	ArchivoServicio archivoServicio = new ArchivoServicio();
 	ClienteServicio clienteServicio = new ClienteServicio();
 	Utilidad utilidad = new Utilidad();
 	
 	// Se definen variables de archivos importar/exportar
 	String fileName = "Clientes";  // Nombre archico para exportar
 	String fileName1 = "DBClientes.csv"; // Nombre archivo tipo csv para importación de datos
-	List<Cliente> clientes = clienteServicio.getListaClientes();
+	private List<Cliente> clientes; 
 	// Menú iniciarMenu
 	public final void iniciarMenu() {
 		
@@ -67,6 +67,7 @@ public class Menu {
 	
 	
 	private void listarCliente() {
+		
 		clienteServicio.listarClientes();
 		
 	}
@@ -96,6 +97,7 @@ public class Menu {
 	
 	private void editarCliente() {
 		// Menú de edición
+		clientes = clienteServicio.getListaClientes();
 		utilidad.limpiarPantalla();
 		System.out.println("------------------- Editar Cliente -------------------");
 		System.out.println("1. Cambiar el estado del Cliente");
@@ -112,7 +114,7 @@ public class Menu {
 			System.out.println("Ingrse RUN del Cliente a editar:");
 			String run = scanner.nextLine();
 			System.out.println("-------------- Actualizando estado  Cliente ---------------");
-			Cliente cliente = obtenerCliente(run); 
+			Cliente cliente = obtenerCliente(run, clientes); 
 			String estado = cliente.getNombreCategoria().name();
 			System.out.println("El estado actual es: " + estado);
 			System.out.println("1. Si desea cambiar el estado del Cliente a Inactivo");
@@ -160,7 +162,7 @@ public class Menu {
 			
 			System.out.println("Ingrese RUN del Cliente a editar:");  
 			String run = scanner.nextLine();
-			Cliente cliente = obtenerCliente(run);
+			Cliente cliente = obtenerCliente(run, clientes);
 			
 			// Llama a método editarCliente para editar datos del Cliente y actualizar lista de clientes
 			clienteServicio.editarCliente(cliente);
@@ -173,7 +175,11 @@ public class Menu {
 	
 	
 	private void importarDatos() {
-		// TODO Auto-generated method stub
+		
+		ArchivoServicio archivoServicio = new ArchivoServicio();
+		System.out.println("-------------- Cargar datos --------------");
+		archivoServicio.cargarDatos(fileName1);
+		
 		
 	}
 
@@ -182,19 +188,30 @@ public class Menu {
 	private void exportarDatos() {
 		Exportador exportadorTxt = new ExportadorTxt();
 		Exportador exportadorCsv = new ExportadorCsv();
+		List<Cliente> clientes = clienteServicio.getListaClientes();
 		utilidad.limpiarPantalla();
-		System.out.println("Exportación de datos:");
-		System.out.println("1. Exportar en archivo tipo .TXT");
-		System.out.println("2. Exportar en archivo tipo .CVS");
-		System.out.println("Selecione tipo de archivo a exportar:");
+		System.out.println("-------------- Exportar datos --------------");
+		System.out.println("Seleccione el formato a exportar:");
+		System.out.println("1. Formato .txt");
+		System.out.println("2. Formato .csv");
+		System.out.println("\n7. Ingrese una opción para exportar:");
+		System.out.println("--------------------------------------------");
 		String opcion = scanner.nextLine();
+		System.out.println("\n-------------- Exportar datos --------------");
+		
 		utilidad.espera();
 		
+		
+		//A continuación se llama el método exportar opción 1 o 2 depende del tipo
+		//de archivo a exportar, se utiliza polimorfismo para accesar la clase Exportador
+		//aprovechando la herencia
 		if(opcion.equals("1")) {
+			
 			((Exportador) exportadorTxt).exportar(fileName, clientes);
 			
 		}
 		else if (opcion.equals("2")) {			
+			
 			((Exportador) exportadorCsv).exportar(fileName, clientes);
 		}
 		
@@ -210,7 +227,7 @@ public class Menu {
 	
 	
 	// Método devuelve el Cliente al recibir el RUN como parámetro de entrada
-	private Cliente obtenerCliente(String run) {
+	private Cliente obtenerCliente(String run, List<Cliente> clientes) {
 		Cliente cliente = null;
 		if(clientes != null) {
 			for (Cliente client : clientes ) {

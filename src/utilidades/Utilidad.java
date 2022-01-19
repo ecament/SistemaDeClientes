@@ -11,7 +11,7 @@ public class Utilidad {
 	public void espera() {
 		for(int i = 0; i < 10; i++) {
 			try {
-				Thread.sleep(150);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

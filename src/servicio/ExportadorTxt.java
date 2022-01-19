@@ -14,16 +14,18 @@ public class ExportadorTxt extends Exportador{
 	public void exportar(String fileName, List<Cliente> listaClientes) {
 		
 		File archivo = new File(fileName + ".txt");
-
+		System.out.println("Ingresa la ruta en donde desea exportar el archivo clientes.txt:");
+		String ruta = scanner.nextLine();
+		System.out.println("--------------------------------------------\n");
 		
 		try {
 			if(!archivo.exists()) {
 				archivo.createNewFile();
 			}
 			
-			FileWriter fileW = new FileWriter(archivo);
+			FileWriter fileW = new FileWriter(ruta + "/" + archivo);
 			PrintWriter pW= new PrintWriter(fileW);
-			
+		
 
 			listaClientes.forEach(client -> {
 				
