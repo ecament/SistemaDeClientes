@@ -1,6 +1,5 @@
 package test;
 
-import static org.junit.Assert.*;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -26,9 +25,9 @@ public class clienteServicioTest {
 	@Test
 	public void agregarClienteTest() {
 		
-	//When
+	//Cuando
 		clienteServicio.agregarCliente(cliente1);
-	//Then
+	//Resulta
 		Assert.assertEquals(1, clienteServicio.getListaClientes().size());
 		
 	}
@@ -36,10 +35,11 @@ public class clienteServicioTest {
 	
    @Test // Test para probar en caso de Cliente = Null
 	public void agregarClienteNullTest() {
-		cliente1 = null;
-		
+		//Dado
+	   cliente1 = null;
+		//Cuando
 		clienteServicio.agregarCliente(cliente1);
-		
+		//Resulta
 		Assert.assertEquals(0, clienteServicio.getListaClientes().size());
 		
 	}

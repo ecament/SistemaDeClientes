@@ -23,9 +23,10 @@ public class Menu {
 	String fileName = "Clientes";  // Nombre archico para exportar
 	String fileName1 = "DBClientes.csv"; // Nombre archivo tipo csv para importación de datos
 	private List<Cliente> clientes; 
-	// Menú iniciarMenu
+	
+	//iniciarMenu
 	public final void iniciarMenu() {
-		
+		//Creación de menú inicial
 		System.out.println("\n1. Listar Clientes");
 		System.out.println("2. Agregar Cliente");
 		System.out.println("3. Editar Cliente");
@@ -33,6 +34,7 @@ public class Menu {
 		System.out.println("5. Exportar Datos");
 		System.out.println("6. Salir");
 
+		// De acuerdo a la opción elegida se llama a los métodos 
 		System.out.println("Ingrese una opción:");
 		String seleccion = scanner.nextLine();
 		
@@ -59,6 +61,9 @@ public class Menu {
 			System.out.println("La selección no es válida");
 
 		}
+	
+	
+	// Se limpia pantalla y se da un retardo antes de llamar de nuevo al menú
 	utilidad.limpiarPantalla();	
 	utilidad.espera();
 	iniciarMenu();	
@@ -66,13 +71,15 @@ public class Menu {
 
 	
 	
-	
+	//Listar Clientes
 	private void listarCliente() {
 		
 		clienteServicio.listarClientes();
 		
 	}
 	
+	
+	// Se llama método para agregar clientes
 	private void agregarCliente() {
 		
 		System.out.println("------------------- Crear Clientes -------------------");
@@ -117,13 +124,16 @@ public class Menu {
 			System.out.println("-------------- Actualizando estado  Cliente ---------------");
 			Cliente cliente = obtenerCliente(run, clientes); 
 			String estado = cliente.getNombreCategoria().name();
+			//Se crea sub menú para cambiar estado del cliente
 			System.out.println("El estado actual es: " + estado);
 			System.out.println("1. Si desea cambiar el estado del Cliente a Inactivo");
 			System.out.println("2. Si desea cambiar el estado del Cliente a Activo");
 			System.out.println("Ingrese opción:");
 			System.out.println("------------------------------------------------------");
 			String op = scanner.nextLine();
-			String estadoNum = null;
+			String estadoNum = "";
+			//Se verifica diferentes estados: Si el cliente ya posee el estado seleccioando, Si no lo tenía se cambia el estado
+			// y si se selecciona una opción no valida se imprime en pantalla.
 			if (estado.equals("Inactivo")){
 				estadoNum = "1";
 			}
@@ -131,12 +141,14 @@ public class Menu {
 			if (estado.equals("Activo")) {
 				estadoNum = "2";
 			}
+			
 			if (op.equals(estadoNum)) {
 				System.out.println("El estado del Cliente ya es " + estado );
 			}
 			
 			else {
 				
+				// Se cambia y actualiza estado del cliente
 				if (op.equals("1")) {
 					cliente.setNombreCategoria(CategoriaEnum.Inactivo);
 					System.out.println("Estado del Cliente actualizado");
@@ -151,7 +163,11 @@ public class Menu {
 			    else {
 			    	System.out.println("Opción no válida");
 			    }
-			}
+				
+			    
+			 }
+			
+			
 			
 			
 			
@@ -174,7 +190,7 @@ public class Menu {
 		
 	}
 	
-	
+	// Método para llamar método cargarDatos ubicado en la clase ArchivoServicio
 	private void importarDatos() {
 		
 		ArchivoServicio archivoServicio = new ArchivoServicio();
@@ -185,10 +201,16 @@ public class Menu {
 	}
 
 
+	
+	
+	
+	
+	// Este método da la opción de exportar datos y llama método exportarTxt o exportarCsv
+	// ubicados en la clases ExportadorTxt / ExportadorCsv
 
 	private void exportarDatos() {
-		Exportador exportadorTxt = new ExportadorTxt();
-		Exportador exportadorCsv = new ExportadorCsv();
+		
+		
 		List<Cliente> clientes = clienteServicio.getListaClientes();
 		utilidad.limpiarPantalla();
 		System.out.println("-------------- Exportar datos --------------");
@@ -204,18 +226,19 @@ public class Menu {
 		
 		
 		//A continuación se llama el método exportar opción 1 o 2 depende del tipo
-		//de archivo a exportar, se utiliza polimorfismo para accesar la clase Exportador
-		//aprovechando la herencia
+		//de archivo a exportar
 		
 		
 		if(opcion.equals("1")) {
-			
-			((Exportador) exportadorTxt).exportar(fileName, clientes);
+		
+			Exportador exportadorTxt = new ExportadorTxt();	
+			exportadorTxt.exportar(fileName, clientes);
+		
 			
 		}
 		else if (opcion.equals("2")) {			
-			
-			((Exportador) exportadorCsv).exportar(fileName, clientes);
+			Exportador exportadorCvs = new ExportadorCsv();
+			exportadorCvs.exportar(fileName, clientes);
 		}
 		
 	}
