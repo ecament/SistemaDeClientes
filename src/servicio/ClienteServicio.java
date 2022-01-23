@@ -8,11 +8,12 @@ import modelo.Cliente;
 
 public class ClienteServicio {
 	
-	static List<Cliente> listaClientes = new ArrayList<Cliente>();
+    protected List<Cliente> listaClientes = new ArrayList<Cliente>();
 	Scanner scanner = new Scanner (System.in);
 	
+	
 	public ClienteServicio(List<Cliente> listaClientes) {
-		ClienteServicio.listaClientes = listaClientes;
+		this.listaClientes = listaClientes;
 	}
 	
 	
@@ -27,13 +28,13 @@ public class ClienteServicio {
 
 	//Setter
 	public void setListaClientes(List<Cliente> listaClientes) {
-		ClienteServicio.listaClientes = listaClientes;
+		this.listaClientes = listaClientes;
 	}
 
 
 	// Método ListarClientes, llamado desde Menú
 	public void listarClientes() {
-
+		
 			listaClientes.forEach(client -> {
 			System.out.println("-------------------- Datos del Cliente -------------------- ");	
 			System.out.println("RUN del Cliente: " + client.getRunCliente());
@@ -55,7 +56,7 @@ public class ClienteServicio {
 	// Método para agregar clientes en el arreglo ListaCliente
 	public void  agregarCliente(Cliente cliente) {
 		if (cliente != null)
-		listaClientes.add(cliente);
+		getListaClientes().add(cliente);
 		
 	}
 	

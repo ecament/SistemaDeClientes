@@ -58,12 +58,9 @@ public class ExportadorTxt extends Exportador{
 		    System.out.println("Datos de clientes exportados correctamente en formato .txt");
 			
 		
-		}  catch(FileNotFoundException e) {
-			
-			System.out.println(e.getMessage() + ", Archivo no encontrado!");
-			
+		
 		} catch (IOException e) {
-			System.out.println(e.getMessage()+", Ingrese ruta correcta!");
+			System.out.println(e.getMessage()+", Ingrese una ruta existente!");
 		//	e.printStackTrace();
 		
 		}  catch (Exception e) {

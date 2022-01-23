@@ -52,11 +52,8 @@ public class ExportadorCsv extends Exportador {
 					    System.out.println("Datos de clientes exportados correctamente en formato .csv");
 					}
 				
-				} catch(FileNotFoundException e) {
-					
-					System.out.println("Archivo no encontrdo: " + e.getMessage());
 				} catch (IOException e) {
-					System.out.println(e.getMessage() + ", Ingrese ruta correcta!");
+					System.out.println(e.getMessage() + ", Ingrese una ruta existente!");
 				//	e.printStackTrace();	
 				}  catch (Exception e) {
 					System.out.println("Error inesperado: " + e.getMessage());

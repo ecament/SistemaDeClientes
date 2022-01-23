@@ -14,16 +14,17 @@ import utilidades.Utilidad;
 
 public class Menu {
 	
-	Scanner scanner = new Scanner(System.in);
+	private Scanner scanner = new Scanner(System.in);
 	ArchivoServicio archivoServicio = new ArchivoServicio();
 	ClienteServicio clienteServicio = new ClienteServicio();
+	private List<Cliente> clientes = clienteServicio.getListaClientes();
+		
 	Utilidad utilidad = new Utilidad();
 	
 	// Se definen variables de archivos importar/exportar
 	String fileName = "Clientes";  // Nombre archico para exportar
 	String fileName1 = "DBClientes.csv"; // Nombre archivo tipo csv para importación de datos
-	private List<Cliente> clientes; 
-	
+   
 	//iniciarMenu
 	public final void iniciarMenu() {
 		//Creación de menú inicial
@@ -95,17 +96,16 @@ public class Menu {
 		Cliente cliente = new Cliente (run, nombre, apellido, anios, CategoriaEnum.Activo);
 		//Se llama al método agregarCliente ubicado en ClienteServicio
 		clienteServicio.agregarCliente(cliente);
-		System.out.println("Cliente agregado");
-		
-		
-		
-		
+		System.out.println("Cliente agregado");		
 		
 	}
 	
+	
+	
+	// Método para editar Cliente
 	private void editarCliente() {
 		// Menú de edición
-		clientes = clienteServicio.getListaClientes();
+		//clientes = clienteServicio.getListaClientes();
 		utilidad.limpiarPantalla();
 		System.out.println("------------------- Editar Cliente -------------------");
 		System.out.println("1. Cambiar el estado del Cliente");
@@ -118,12 +118,21 @@ public class Menu {
 		// Si Opción es "1" se muestra menú para editar estado del Cliente
 		if (opcion.equals("1")) {
 			// Si opción 1 se se cambia el estado del cliente
+			Cliente cliente = null;
+			while(cliente ==null) {//Si RUN no existe ne Lista cliente es null y
+								   // y se solicita ingresar RUN correcto
+				System.out.println("Ingrse RUN del Cliente a editar:");
+				String run = scanner.nextLine();
+				System.out.println("-------------- Actualizando estado  Cliente ---------------");	
+				cliente = obtenerCliente(run, clientes);
+				if(cliente == null) {
+					System.out.println("El Cliente no existe o no ingresó el RUN correctamente");
+				}
+			}	
+			    String estado = cliente.getNombreCategoria().name();
 			
-			System.out.println("Ingrse RUN del Cliente a editar:");
-			String run = scanner.nextLine();
-			System.out.println("-------------- Actualizando estado  Cliente ---------------");
-			Cliente cliente = obtenerCliente(run, clientes); 
-			String estado = cliente.getNombreCategoria().name();
+				
+			
 			//Se crea sub menú para cambiar estado del cliente
 			System.out.println("El estado actual es: " + estado);
 			System.out.println("1. Si desea cambiar el estado del Cliente a Inactivo");
@@ -176,10 +185,16 @@ public class Menu {
 		// Si la Opción es "2", se llama a menú para editar datos del Cliente
 		else if (opcion.equals("2"))
 			{
-			
-			System.out.println("Ingrese RUN del Cliente a editar:");  
-			String run = scanner.nextLine();
-			Cliente cliente = obtenerCliente(run, clientes);
+			Cliente cliente = null;
+			while(cliente == null) {
+				 System.out.println("Ingrese RUN del Cliente a editar:");  
+				 String run = scanner.nextLine();
+				 cliente = obtenerCliente(run, clientes);
+				 if (cliente == null) {
+				     System.out.println("El Cliente no existe o no ingresó el RUN correctamente");
+				 }
+				
+			}
 			
 			// Llama a método editarCliente para editar datos del Cliente y actualizar lista de clientes
 			clienteServicio.editarCliente(cliente);
@@ -195,14 +210,14 @@ public class Menu {
 		
 		ArchivoServicio archivoServicio = new ArchivoServicio();
 		System.out.println("-------------- Cargar datos --------------");
-		archivoServicio.cargarDatos(fileName1);
+		//Sincroniza lista de clientes con la lista existente en ArchivoServicios antes 
+		// de llamar al método cargarDatos
+		archivoServicio.setClientes(clientes);
+		clientes = archivoServicio.cargarDatos(fileName1);
+		// Actualiza instancia de ListaClientes en ClienteServicio
+		clienteServicio.setListaClientes(clientes);
 		
-		
-	}
-
-
-	
-	
+	}	
 	
 	
 	// Este método da la opción de exportar datos y llama método exportarTxt o exportarCsv
@@ -211,7 +226,7 @@ public class Menu {
 	private void exportarDatos() {
 		
 		
-		List<Cliente> clientes = clienteServicio.getListaClientes();
+		//List<Cliente> clientes = clienteServicio.getListaClientes();
 		utilidad.limpiarPantalla();
 		System.out.println("-------------- Exportar datos --------------");
 		System.out.println("Seleccione el formato a exportar:");
